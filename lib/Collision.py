@@ -15,7 +15,7 @@ def Circle_Rect_Collision(cx,cy,radius,rx,ry,rw,rh):
     if cx < rx: 
         testX = rx
     elif cx > rx+rw: 
-        textX = rx+rw
+        testX = rx+rw
     if cy < ry: 
         testY = ry
     elif cy > ry+rh:
