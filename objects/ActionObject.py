@@ -21,6 +21,9 @@ class Action_Object:
     def __str__(self):
         return self.title
 
+    def __repr__(self):
+        return f"obstacle: {self.title}"
+
     def action_function(self, actor):
         #happens when someone collides with the object.
         if self.debug:
@@ -44,7 +47,7 @@ class Action_Object:
 
         if self.debug:
             #draw AABB
-            pygame.draw.rect(surface, (0,220,0), self.AABB_rect())
+            pygame.draw.rect(surface, (0,220,0), self.AABB_rect(),1)
     
     
 
@@ -61,9 +64,10 @@ class Goal(Action_Object):
     def action_function(self, actor):
         super().action_function(actor)
         #give points based on the amount of steps it took compared to the max amount of steps he could do.
-        #TODO
         #set variable to stop taking new steps (completed?)
-        #TODO
+        actor.goal()
+        actor.die()
+
 
 """
 Lava: instant death on touch, fitness score doesnt increase
@@ -76,7 +80,7 @@ class Lava(Action_Object):
     def action_function(self, actor):
         super().action_function(actor)
         #set variable to stop taking new steps (completed/dead?)
-        actor.dead = True
+        actor.die()
 
 
 """
@@ -88,7 +92,7 @@ class Start(Action_Object):
     def __init__(self, x=0, y=0, w=20, h=20):
         super().__init__(x, y, w, h, "Start")
         self.color = (85, 92, 201)
-
+    
 """
 Wall: Static collision, cant pass through.
 """

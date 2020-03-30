@@ -13,6 +13,10 @@ class Brain:
         self.max = 10
         self.steps_done = 0
         
+    def __repr__(self):
+        return repr(self.lst_vectors)
+
+
     def create_brain(self):
         [self.lst_vectors.append(self.random_vector()) for x in range(self.length)]
         self.path = iter(self.lst_vectors)
@@ -23,6 +27,16 @@ class Brain:
 
     def random_vector(self):
         return [round((random.random()*(self.max*2)) - self.max),round((random.random()*(self.max*2))- self.max)] 
+
+    def brain_from_lst(self, lst):
+        self.lst_vectors = lst
+        self.path = iter(self.lst_vectors)
+
+    def mutate(self, rate):
+        #make rate% of the vectors in the list a new vector
+        lst_mutated = [self.random_vector() if random.random()*100<=rate else vec for vec in self.lst_vectors]
+        self.lst_vectors = lst_mutated
+        self.path = iter(self.lst_vectors)
 
 
 def test():
